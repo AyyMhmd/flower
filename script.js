@@ -236,29 +236,26 @@ class EncryptedMessage {
     setupDecryptionListener() {
         const handleKeyDown = (event) => {
             if (event.key === "Enter" && !this.isDecrypting) {
-                this.isDecrypting = true;
-                this.menuElement.textContent = this.encryptedDisplayText;
-                this.randomizeText();
-                document.removeEventListener('keydown', handleKeyDown);
-                this.menuElement.removeEventListener('click', handleClickOrTap);
-                this.menuElement.removeEventListener('touchstart', handleClickOrTap);
+                this.startDecryption();
             }
         };
 
-        const handleClickOrTap = () => {
+        const handleClickOrTap = (event) => {
             if (!this.isDecrypting) {
-                this.isDecrypting = true;
-                this.menuElement.textContent = this.encryptedDisplayText;
-                this.randomizeText();
-                document.removeEventListener('keydown', handleKeyDown);
-                this.menuElement.removeEventListener('click', handleClickOrTap);
-                this.menuElement.removeEventListener('touchstart', handleClickOrTap);
+                this.startDecryption();
             }
         };
 
-        document.addEventListener('keydown', handleKeyDown);
         this.menuElement.addEventListener('click', handleClickOrTap);
-        this.menuElement.addEventListener('touchstart', handleClickOrTap);
+        this.menuElement.addEventListener('touchend', handleClickOrTap);
+        document.addEventListener('keydown', handleKeyDown);
+    }
+
+    startDecryption() {
+        this.isDecrypting = true;
+        this.menuElement.textContent = this.encryptedDisplayText;
+        this.randomizeText();
+        // Optional: remove listeners here jika perlu
     }
 
     randomizeText() {

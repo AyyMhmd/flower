@@ -240,10 +240,25 @@ class EncryptedMessage {
                 this.menuElement.textContent = this.encryptedDisplayText;
                 this.randomizeText();
                 document.removeEventListener('keydown', handleKeyDown);
+                this.menuElement.removeEventListener('click', handleClickOrTap);
+                this.menuElement.removeEventListener('touchstart', handleClickOrTap);
+            }
+        };
+
+        const handleClickOrTap = () => {
+            if (!this.isDecrypting) {
+                this.isDecrypting = true;
+                this.menuElement.textContent = this.encryptedDisplayText;
+                this.randomizeText();
+                document.removeEventListener('keydown', handleKeyDown);
+                this.menuElement.removeEventListener('click', handleClickOrTap);
+                this.menuElement.removeEventListener('touchstart', handleClickOrTap);
             }
         };
 
         document.addEventListener('keydown', handleKeyDown);
+        this.menuElement.addEventListener('click', handleClickOrTap);
+        this.menuElement.addEventListener('touchstart', handleClickOrTap);
     }
 
     randomizeText() {

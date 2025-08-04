@@ -38,6 +38,8 @@ body {
     word-wrap: break-word;
     max-height: none;
     overflow-y: visible;
+    cursor: pointer;
+    user-select: none;
 }
 
 .cursor {
